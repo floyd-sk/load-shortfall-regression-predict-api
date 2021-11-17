@@ -78,9 +78,10 @@ def _preprocess_data(data):
     print(to_drop)
     feature_vector_clean_no_time_df.drop(to_drop, axis=1, inplace=True)
 
-
+    feature_vector_clean_no_time_df = feature_vector_clean_no_time_df.drop(['load_shortfall_3h'], axis=1)
+    predict_vector = feature_vector_clean_no_time_df.load_shortfall_3h
     
-    predict_vector = feature_vector_clean_no_time_df.drop(['Unnamed: 0', 'time'], axis = 1)
+    #predict_vector = feature_vector_clean_no_time_df.drop(['Unnamed: 0', 'time'], axis = 1)
     # ------------------------------------------------------------------------
 
     return predict_vector
