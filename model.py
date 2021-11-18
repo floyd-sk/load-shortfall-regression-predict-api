@@ -59,27 +59,8 @@ def _preprocess_data(data):
 
     # ----------- Replace this code with your own preprocessing steps --------
     #predict_vector = feature_vector_df[['Madrid_wind_speed','Bilbao_rain_1h','Valencia_wind_speed']]
-    feature_vector_clean_df = feature_vector_df.copy()
-    feature_vector_clean_df['Valencia_wind_deg'] = feature_vector_clean_df['Valencia_wind_deg'].str.extract('(\d+)')
-    feature_vector_clean_df['Valencia_wind_deg'] = pd.to_numeric(feature_vector_clean_df['Valencia_wind_deg'])
-
-    feature_vector_clean_df['Seville_pressure'] = feature_vector_clean_df['Seville_pressure'].str.extract('(\d+)')
-    feature_vector_clean_df['Seville_pressure'] = pd.to_numeric(feature_vector_clean_df['Seville_pressure'])
-    mean_Valencia_pressure=feature_vector_clean_df.Valencia_pressure.mean()
-    feature_vector_clean_df.loc[feature_vector_clean_df.Valencia_pressure.isnull(),'Valencia_pressure']=mean_Valencia_pressure
-    feature_vector_clean_df = feature_vector_clean_df.drop(['Unnamed: 0'], axis = 1)
-    feature_vector_clean_no_time_df = feature_vector_clean_df.copy()
-    feature_vector_clean_no_time_df = feature_vector_clean_no_time_df.drop(['time'], axis = 1)
-    corr_matrix = feature_vector_clean_no_time_df.corr().abs()
-    # Select upper triangle of correlation matrix
-    upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
-    # Find features with correlation greater than 0.90
-    to_drop = [column for column in upper.columns if any(upper[column] > 0.90)]
-    print(to_drop)
-    feature_vector_clean_no_time_df.drop(to_drop, axis=1, inplace=True)
-
-    feature_vector_clean_no_time_df = feature_vector_clean_no_time_df.drop(['load_shortfall_3h'], axis=1)
-    predict_vector = feature_vector_clean_no_time_df.load_shortfall_3h
+    
+    predict_vector = feature_vector_df.drop(['Unnamed: 0', 'time', 'Valencia_wind_deg', 'Seville_pressure', 'Valencia_pressure'], axis=1, inplace=True)
     
     #predict_vector = feature_vector_clean_no_time_df.drop(['Unnamed: 0', 'time'], axis = 1)
     # ------------------------------------------------------------------------
