@@ -60,7 +60,7 @@ def _preprocess_data(data):
     # ----------- Replace this code with your own preprocessing steps --------
     #predict_vector = feature_vector_df[['Madrid_wind_speed','Bilbao_rain_1h','Valencia_wind_speed']]
     
-    predict_vector = feature_vector_df.drop(['Unnamed: 0', 'time', 'Valencia_wind_deg', 'Seville_pressure', 'Valencia_pressure'], axis=1, inplace=True)
+    predict_vector = feature_vector_df[['Madrid_wind_speed','Bilbao_rain_1h','Valencia_wind_speed']]
     
     #predict_vector = feature_vector_clean_no_time_df.drop(['Unnamed: 0', 'time'], axis = 1)
     # ------------------------------------------------------------------------
